@@ -1,0 +1,27 @@
+<div class="container">
+  <h1 class="text-center mb-4 bg-info p-4 text-white fw-bolder">View Employees</h1>
+  <table class="table border">
+    <thead>
+      <tr class="border text-center bg-black text-white">
+        <th>Count</th>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Department ID</th>
+        <th>Role ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="border text-center" *ngFor="let employee of employeeList; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{"EMP#00" + employee.id}}</td>
+        <td>{{employee.firstName}}</td>
+        <td>{{employee.lastName}}</td>
+        <td>{{employee.email}}</td>
+        <td>{{employee.departmentId}}</td>
+        <td>{{employee.roleId}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
