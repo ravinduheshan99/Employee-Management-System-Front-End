@@ -8,7 +8,7 @@ import { NavComponent } from '../../common/nav/nav.component';
 @Component({
   selector: 'app-view-all-employee',
   standalone: true,
-  imports: [HttpClientModule, FormsModule, CommonModule,NavComponent],
+  imports: [HttpClientModule, FormsModule, CommonModule, NavComponent],
   templateUrl: './view-all-employee.component.html',
   styleUrl: './view-all-employee.component.css'
 })
@@ -16,6 +16,15 @@ export class ViewAllEmployeeComponent {
 
   public employeeList: any;
 
+  public selectedEmployee={
+    id:"",
+    firstName:"",
+    lastName:"",
+    email:"",
+    departmentId:"",
+    roleId:"",
+  };
+  
   constructor(private http: HttpClient) {
     this.loadEmployeeTable();
   }
@@ -68,5 +77,9 @@ export class ViewAllEmployeeComponent {
       }
     });
 
+  }
+
+  updateEmployee(employee: any) {
+    this.selectedEmployee=employee;
   }
 }
