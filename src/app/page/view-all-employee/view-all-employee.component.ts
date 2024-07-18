@@ -16,15 +16,15 @@ export class ViewAllEmployeeComponent {
 
   public employeeList: any;
 
-  public selectedEmployee={
-    id:"",
-    firstName:"",
-    lastName:"",
-    email:"",
-    departmentId:"",
-    roleId:"",
+  public selectedEmployee = {
+    id: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    departmentId: "",
+    roleId: "",
   };
-  
+
   constructor(private http: HttpClient) {
     this.loadEmployeeTable();
   }
@@ -79,7 +79,44 @@ export class ViewAllEmployeeComponent {
 
   }
 
-  updateEmployee(employee: any) {
-    this.selectedEmployee=employee;
+  selectEmployee(employee: any) {
+    if (employee != null) {
+      this.selectedEmployee = employee;
+    }
+  }
+
+  updateEmployee() {
+
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      denyButtonText: `Don't save`
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.http.put("http://localhost:8080/emp-controller/update-employee", this.selectedEmployee).subscribe(res => {
+          this.loadEmployeeTable(); // Reload the table after update
+          Swal.fire("Saved!", "", "success");
+          this.clearSelectedEmployee(); // Clear the form fields
+
+        })
+
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  }
+
+  clearSelectedEmployee() {
+    this.selectedEmployee = {
+      id: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      departmentId: "",
+      roleId: "",
+    }
   }
 }

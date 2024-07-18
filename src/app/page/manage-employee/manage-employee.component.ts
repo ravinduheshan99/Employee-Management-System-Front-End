@@ -8,32 +8,43 @@ import { NavComponent } from '../../common/nav/nav.component';
 @Component({
   selector: 'app-manage-employee',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,CommonModule,NavComponent],
+  imports: [FormsModule, HttpClientModule, CommonModule, NavComponent],
   templateUrl: './manage-employee.component.html',
   styleUrl: './manage-employee.component.css'
 })
 export class ManageEmployeeComponent {
 
-  public employeeObject={
-   firstName:"",
-   lastName:"",
-   email:"",
-   departmentId:"",
-   roleId:""
+  public employeeObject = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    departmentId: "",
+    roleId: ""
   }
-  
-  constructor(private http:HttpClient){}
 
-  addEmployee(){
-    this.http.post("http://localhost:8080/emp-controller/add-employee",this.employeeObject).subscribe(
-      (data)=>{
+  constructor(private http: HttpClient) { }
+
+  addEmployee() {
+    this.http.post("http://localhost:8080/emp-controller/add-employee", this.employeeObject).subscribe(
+      (data) => {
         Swal.fire({
           title: "Operation Status",
           text: "Employee Added Successfully",
           icon: "success"
         });
+        this.clearSelectedEmployee(); // Clear the form fields
       }
     )
   }
-  
+
+  clearSelectedEmployee() {
+    this.employeeObject = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      departmentId: "",
+      roleId: ""
+    }
+  }
+
 }
